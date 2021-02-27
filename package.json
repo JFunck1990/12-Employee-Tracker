@@ -1,5 +1,5 @@
 {
-  "name": "12-Employee-Tracker",
+  "name": "12employeetracker",
   "version": "1.0.0",
   "description": "# Unit 12 MySQL Homework: Employee Tracker",
   "main": "script.js",
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/JFunck1990/12-Employee-Tracker.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jack Funck",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/JFunck1990/12-Employee-Tracker/issues"
@@ -22,5 +22,6 @@
     "inquirer": "^7.3.3",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.7"
-  }
+  },
+  "devDependencies": {}
 }
