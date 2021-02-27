@@ -1,5 +1,6 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
+const questions = require("./questions");
 
 const connection = mysql.createConnection({
     host: "localhost",
@@ -19,7 +20,14 @@ const connection = mysql.createConnection({
 connection.connect((err) => {
     if (err) throw err;
     console.log(`connected as id ${connection.threadId}`);
+
+    qStart();
 });
+
+function qStart () {
+inquirer.prompt(questions.main)
+
+}
 
 
 
