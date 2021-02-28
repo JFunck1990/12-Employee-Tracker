@@ -2,10 +2,13 @@ const mysql = require("mysql");
 const inquirer = require("inquirer");
 const questions = require("./questions");
 const connection = require("./resources/connection");
-const consTable = require("console.table")
+const consTable = require("console.table");
+
+qStart();
 
 function qStart () {
 inquirer.prompt(questions.main).then(res => {
+    console.log( "This is res.choose:" + res.choose);
  switch(res.choose ) {
     case "View all employees":
     viewEmp();
@@ -16,7 +19,7 @@ inquirer.prompt(questions.main).then(res => {
     break;
 
     case "View all employees by department":
-        viewEmpDep();
+    viewEmpDep();
     break;
 
     case "View all employees by manager":
@@ -68,8 +71,14 @@ inquirer.prompt(questions.main).then(res => {
 
 
 
-const viewEmp = () => {
+const viewEmp = (res) => {
 const query = "";
+
+connection.query(query, (err, data) => {
+    if(err) throw err;
+    console.table(data);
+    qStart();
+});
 }
 
 
