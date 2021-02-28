@@ -1,8 +1,8 @@
 const main =[
     {
-        name: "coice",
+        name: "choose",
         type: "list",
-        message: "What would you like to do?",
+        message: "Welcome to Employee Tracker, What would you like to do?",
         choices: [
         "View all employees",
         "View all employees by role",
@@ -16,7 +16,9 @@ const main =[
         "Delete employee",
         "Delete role",
         "Delete department",
-        "View department budgets"]
+        "View department budgets",
+        "Exit"
+    ]
     },
 ];
 

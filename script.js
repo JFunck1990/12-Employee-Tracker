@@ -1,31 +1,27 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 const questions = require("./questions");
-
-const connection = mysql.createConnection({
-    host: "localhost",
-
-    port: 3306,
-
-    user: "root",
-
-    password: "1234567",
-
-    database: "employees_db"
-
-});
+const connection = require("./resources/connection");
 
 
+console.log( "This is questions: "+ questions.main.choose);
 
-connection.connect((err) => {
-    if (err) throw err;
-    console.log(`connected as id ${connection.threadId}`);
-
-    qStart();
-});
+// connection.query("select * from department", (err, data) => {
+//     if (err){
+//       throw err;
+//     }
+//     console.log(data);
+//     connection.end();
+//   })
 
 function qStart () {
-inquirer.prompt(questions.main)
+inquirer.prompt(questions.main).then(res => {
+switch (res.main) {
+
+
+}
+
+});
 
 }
 
