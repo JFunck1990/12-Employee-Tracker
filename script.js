@@ -2,65 +2,75 @@ const mysql = require("mysql");
 const inquirer = require("inquirer");
 const questions = require("./questions");
 const connection = require("./resources/connection");
-
-
+const consTable = require("console.table")
 
 function qStart () {
 inquirer.prompt(questions.main).then(res => {
- if(res.choose === "View all employees"){
+ switch(res.choose ) {
+    case "View all employees":
+    viewEmp();
+    break
 
- }
- if(res.choose === "View all employees by role") {
+    case  "View all employees by role":
+     viewEmpRole();
+    break;
 
+    case "View all employees by department":
+        viewEmpDep();
+    break;
+
+    case "View all employees by manager":
+    viewEmpMan();
+    break;
+
+    case "Add employee":
+    addEmp();
+    break;
+
+    case "Add role":
+    addRole();
+    break;
+
+    case "Add department":
+    addDep();
+    break;
+
+    case "Update employee role":
+    upEmpRole();
+    break;
+
+    case "Update employee manager":
+    upEmpMan();
+    break;
+
+    case "Delete employee":
+    delEmp();
+    break;
+
+    case "Delete role":
+    delRol();
+    break;
+
+    case "Delete department":
+    delDep();
+    break;
+
+    case "Exit":
+    connection.end();
+    break;
+
+    default:
+    console.log(`Invalid action: ${res.choose}`);
+    break;
 }
-if(res.choose === "View all employees by department"){
+ });
 
-}
 
-if(res.choose === "View all employees by manager") {
-
-}
-if(res.choose === "Add employee"){
-
-}
-if(res.choose === "Add role"){
-
-}
-if(res.choose === "Add department"){
-
-}
-if(res.choose === "Update employee role"){
-
-}
-if(res.choose === "Update employee manager"){
-
-}
-if (res.choose === "Delete employee"){
-
-}
-if(res.choose === "Delete role"){
-
-}
-if(res.choose === "Delete department"){
-
-}
-if(res.choose ===  "View department budgets"){
-
-}
-if(res.choose === "Exit"){
-
-connection.end();
-}
-
-});
-
-}
 
 
 const viewEmp = () => {
-
-
+const query = "";
 }
 
 
-
+}

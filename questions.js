@@ -16,7 +16,6 @@ const main =[
         "Delete employee",
         "Delete role",
         "Delete department",
-        "View department budgets",
         "Exit"
     ]
     },

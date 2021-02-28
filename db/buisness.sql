@@ -10,7 +10,7 @@ name varchar(50) not null,
 primary key(id)
 );
 
-create table  role (
+create table  roles (
 id int not null auto_increment,
 title varchar(50) not null,
 salary decimal (9,2) not null,
