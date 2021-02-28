@@ -4,22 +4,13 @@ const questions = require("./questions");
 const connection = require("./resources/connection");
 
 
-console.log( "This is questions: "+ questions.main.choose);
-
-// connection.query("select * from department", (err, data) => {
-//     if (err){
-//       throw err;
-//     }
-//     console.log(data);
-//     connection.end();
-//   })
 
 function qStart () {
 inquirer.prompt(questions.main).then(res => {
  if(res.choose === "View all employees"){
 
  }
-if(res.choose === "View all employees by role") {
+ if(res.choose === "View all employees by role") {
 
 }
 if(res.choose === "View all employees by department"){
@@ -58,9 +49,16 @@ if(res.choose ===  "View department budgets"){
 }
 if(res.choose === "Exit"){
 
+connection.end();
 }
 
 });
+
+}
+
+
+const viewEmp = () => {
+
 
 }
 
