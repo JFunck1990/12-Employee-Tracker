@@ -4,7 +4,7 @@ const questions = require("./questions");
 const connection = require("./resources/connection");
 const consTable = require("console.table");
 
-qStart();
+
 
 function qStart () {
 inquirer.prompt(questions.main).then(res => {
@@ -72,7 +72,11 @@ inquirer.prompt(questions.main).then(res => {
 
 
 const viewEmp = (res) => {
-const query = "";
+const query = `SELECT employee.id, employee.first_name, employee.last_name, roles.title
+FROM employee
+LEFT JOIN roles
+ON employee.role_id=roles.id
+`;
 
 connection.query(query, (err, data) => {
     if(err) throw err;
@@ -83,3 +87,5 @@ connection.query(query, (err, data) => {
 
 
 }
+
+qStart();
