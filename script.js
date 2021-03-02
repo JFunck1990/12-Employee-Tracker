@@ -68,15 +68,12 @@ inquirer.prompt(questions.main).then(res => {
 }
  });
 
-
+}
 
 
 const viewEmp = (res) => {
-const query = `SELECT employee.id, employee.first_name, employee.last_name, roles.title
-FROM employee
-LEFT JOIN roles
-ON employee.role_id=roles.id
-`;
+    console.log("Viewing Employees")
+const query = "SELECT employee.first_name, employee.last_name, role.title, role.salary, department.name, CONCAT(e.first_name, ' ' ,e.last_name) AS Manager FROM employee INNER JOIN role on role.id = employee.role_id INNER JOIN department on department.id = role.department_id left join employee e on employee.manager_id = e.id;";
 
 connection.query(query, (err, data) => {
     if(err) throw err;
@@ -85,7 +82,22 @@ connection.query(query, (err, data) => {
 });
 }
 
+ const viewEmpRole = (res) => {
 
-}
+
+ }
+
+ const  viewEmpDep = (res) => {
+     const query = "select * from department"
+
+connection.query(query, (err, data) => {
+    if(err) throw err;
+    console.table(data);
+    qStart();
+});
+ }
+
+
+
 
 qStart();

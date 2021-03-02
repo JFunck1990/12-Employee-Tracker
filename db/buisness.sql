@@ -4,24 +4,35 @@ create database employees_db;
 
 use employees_db;
 
+use mysql;
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '1234567';
+flush privileges;
+
+
+use employees_db;
+
 create table department (
-id int not null auto_increment,
-name varchar(50) not null,
-primary key(id)
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(50)  NOT NULL
 );
 
-create table  roles (
-id int not null auto_increment,
-title varchar(50) not null,
-salary decimal (9,2) not null,
-department_id int not null,
-primary key(id)
+create table  role (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(30) NOT NULL,
+  salary DECIMAL UNSIGNED NOT NULL,
+  department_id INT UNSIGNED NOT NULL,
+  INDEX dep_ind (department_id),
+  CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES department(id) ON DELETE CASCADE
 );
 
 create table employee (
-id int not null auto_increment,
-first_name varchar(50) not null,
-last_name varchar(50) not null,
-role_id int not null,
-primary key(id)
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(30) NOT NULL,
+  last_name VARCHAR(30) NOT NULL,
+  role_id INT UNSIGNED NOT NULL,
+  INDEX role_ind (role_id),
+  CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE,
+  manager_id INT UNSIGNED,
+  INDEX man_ind (manager_id),
+  CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE SET NULL
 );
