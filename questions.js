@@ -1,3 +1,5 @@
+
+//Starting promte
 const main =[
     {
         name: "choose",
@@ -20,7 +22,7 @@ const main =[
     }
 
 ];
-
+// Adding Employee
 const empAdd = [
 
 {
@@ -37,7 +39,7 @@ const empAdd = [
   name: "role",
   type: "list",
   message: "What is their role?",
-  choices: ["Need to figure out how to add roles in to prompt"]
+  choices: ["need to figure out"]
 },
  {
      name: "manager",
@@ -46,6 +48,16 @@ const empAdd = [
      choices: ["need to figure out"]
  }
 
+]
+
+
+// Adding department
+const depAdd = [
+    {
+        name: "name",
+        type: "input",
+        message: "What department would you like to add?"
+    }
 ]
 
 

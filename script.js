@@ -100,6 +100,7 @@ connection.query(query, (err, data) => {
 });
  }
 
+
 const addEmp = (res) => {
     console.log("You are adding an Employee");
 
