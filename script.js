@@ -22,10 +22,6 @@ inquirer.prompt(questions.main).then(res => {
     viewEmpDep();
     break;
 
-    case "View all employees by manager":
-    viewEmpMan();
-    break;
-
     case "Add employee":
     addEmp();
     break;
@@ -93,7 +89,8 @@ connection.query(query, (err, data) => {
     });
  }
 
- const  viewEmpDep = (res) => {
+ const viewEmpDep = (res) => {
+     console.log("You are Viewing Employees By Department");
      const query = "SELECT employee.first_name, employee.last_name, department.name As Department FROM employee JOIN role ON employee.role_id = role.id JOIN department ON role.department_id = department.id ORDER BY employee.id"
 
 connection.query(query, (err, data) => {
@@ -103,7 +100,16 @@ connection.query(query, (err, data) => {
 });
  }
 
+const addEmp = (res) => {
+    console.log("You are adding an Employee");
 
+    inquirer.prompt(questions.empAdd).then(res => {
+
+
+        qStart();
+    });
+
+}
 
 
 qStart();

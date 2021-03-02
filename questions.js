@@ -7,7 +7,6 @@ const main =[
         "View all employees",
         "View all employees by role",
         "View all employees by department",
-        "View all employees by manager",
         "Add employee",
         "Add role",
         "Add department",
@@ -18,11 +17,40 @@ const main =[
         "Delete department",
         "Exit"
     ]
-    },
+    }
+
 ];
+
+const empAdd = [
+
+{
+  name:"firstname",
+  type: "input",
+  message: "Enter the First Name"
+},
+{
+  name: "lastname",
+  type: "input",
+  message: "Enter the Last Name"
+},
+{
+  name: "role",
+  type: "list",
+  message: "What is their role?",
+  choices: ["Need to figure out how to add roles in to prompt"]
+},
+ {
+     name: "manager",
+     type: "list",
+     message: "What is their manager name?",
+     choices: ["need to figure out"]
+ }
+
+]
 
 
 
 module.exports = {
-    main
+    main,
+    empAdd,
 }
