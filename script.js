@@ -83,12 +83,18 @@ connection.query(query, (err, data) => {
 }
 
  const viewEmpRole = (res) => {
+     console.log("Viewing Employees by Role");
+     const query = "SELECT employee.first_name, employee.last_name, role.title AS Title FROM employee JOIN role ON employee.role_id = role.id";
 
-
+    connection.query(query, (err, data) => {
+        if(err) throw err;
+        console.table(data);
+        qStart();
+    });
  }
 
  const  viewEmpDep = (res) => {
-     const query = "select * from department"
+     const query = ""
 
 connection.query(query, (err, data) => {
     if(err) throw err;
