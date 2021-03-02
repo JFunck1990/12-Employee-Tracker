@@ -94,7 +94,7 @@ connection.query(query, (err, data) => {
  }
 
  const  viewEmpDep = (res) => {
-     const query = ""
+     const query = "SELECT employee.first_name, employee.last_name, department.name As Department FROM employee JOIN role ON employee.role_id = role.id JOIN department ON role.department_id = department.id ORDER BY employee.id"
 
 connection.query(query, (err, data) => {
     if(err) throw err;
