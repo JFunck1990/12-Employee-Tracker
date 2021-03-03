@@ -39,16 +39,29 @@ const empAdd = [
   name: "role",
   type: "list",
   message: "What is their role?",
-  choices: ["need to figure out"]
+  choices: []
+
 },
+{
+  name: "department",
+  type: "list",
+  message: "what is their department?"
+},
+
  {
      name: "manager",
      type: "list",
-     message: "What is their manager name?",
+     message: "Who is their manager name?",
      choices: ["need to figure out"]
  }
 
-]
+];
+
+const EmpUpRole = [
+    {
+
+    }
+];
 
 
 // Adding department
@@ -58,11 +71,12 @@ const depAdd = [
         type: "input",
         message: "What department would you like to add?"
     }
-]
+];
 
 
 
 module.exports = {
     main,
     empAdd,
+    depAdd,
 }

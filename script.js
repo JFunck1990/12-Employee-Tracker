@@ -80,6 +80,7 @@ connection.query(query, (err, data) => {
 
  const viewEmpRole = (res) => {
      console.log("Viewing Employees by Role");
+
      const query = "SELECT employee.first_name, employee.last_name, role.title AS Title FROM employee JOIN role ON employee.role_id = role.id";
 
     connection.query(query, (err, data) => {
@@ -91,7 +92,10 @@ connection.query(query, (err, data) => {
 
  const viewEmpDep = (res) => {
      console.log("You are Viewing Employees By Department");
+
      const query = "SELECT employee.first_name, employee.last_name, department.name As Department FROM employee JOIN role ON employee.role_id = role.id JOIN department ON role.department_id = department.id ORDER BY employee.id"
+
+     //const query = "SELECT * FROM Department";
 
 connection.query(query, (err, data) => {
     if(err) throw err;
@@ -101,16 +105,103 @@ connection.query(query, (err, data) => {
  }
 
 
-const addEmp = (res) => {
-    console.log("You are adding an Employee");
+   const addEmp = () => {
+    connection.query("SELECT * FROM role", function(err, res) {
+      if (err) throw err;
 
-    inquirer.prompt(questions.empAdd).then(res => {
+      inquirer
+        .prompt([
+          {
+            type: "input",
+            name: "firstName",
+            message: "What is the first name of the employee?"
+          },
+          {
+            type: "input",
+            name: "lastName",
+            message: "What is the last name of the employee?"
+          },
+          {
+            type: "list",
+            name: "role",
+            message: "what role does this employee have?",
+            //loops and displays all existing roles for selection
+            choices: function() {
+              let roleArr = [];
+              for (let i = 0; i < res.length; i++) {
+                roleArr.push(res[i].title);
+              }
+              return roleArr;
+            }
+          },
+          {
+            type: "number",
+            name: "manager",
+            message: "What is the id number of the manager?"
+          }
+        ])
+        .then(function(answers) {
+          //loops through the original response, this time comparing the title of the position with the selected title from the inquirer. When a match is found, grabs the role ID from the res object.
+          let roleID;
+          for (let j = 0; j < res.length; j++) {
+            if (res[j].title == answers.role) {
+              roleID = res[j].id;
+            }
+          }
+          //adds the new employee to the employees table, display the new employee table, launches "next" function.
+          connection.query(
+            "INSERT INTO employee SET?",
+            {
+              first_name: answers.firstName,
+              last_name: answers.lastName,
+              role_id: roleID,
+              manager_id: answers.manager
+            },
+            function(err, res) {
+              if (err) throw err;
+              console.log("here are all the current employees: ");
+              viewEmployees();
+            }
+          );
+        });
+    });
+  };
 
 
+const addRole = (res) => {
+
+    connection.query(query, (err, data) => {
+        if(err) throw err;
+        console.table(data);
         qStart();
     });
-
 }
+
+const addDep = (res) => {
+    console.log("You are adding a Department.")
+    inquirer.prompt(questions.depAdd).then(res => {
+
+
+
+
+        connection.query(query, (err, data) => {
+            if(err) throw err;
+            console.table(data);
+            qStart();
+        })
+
+
+    });
+}
+
+ const upEmpRole = (res) => {
+ const query = connection.query
+    connection.query(query, (err, data) => {
+        if(err) throw err;
+        console.table(data);
+        qStart();
+    });
+ }
 
 
 qStart();
