@@ -93,9 +93,9 @@ connection.query(query, (err, data) => {
  const viewEmpDep = (res) => {
      console.log("You are Viewing Employees By Department");
 
-     const query = "SELECT employee.first_name, employee.last_name, department.name As Department FROM employee JOIN role ON employee.role_id = role.id JOIN department ON role.department_id = department.id ORDER BY employee.id"
+    //  const query = "SELECT employee.first_name, employee.last_name, department.name As Department FROM employee JOIN role ON employee.role_id = role.id JOIN department ON role.department_id = department.id ORDER BY employee.id"
 
-     //const query = "SELECT * FROM Department";
+   const query = "SELECT * FROM Department";
 
 connection.query(query, (err, data) => {
     if(err) throw err;
@@ -109,8 +109,7 @@ connection.query(query, (err, data) => {
     connection.query("SELECT * FROM role", function(err, res) {
       if (err) throw err;
 
-      inquirer
-        .prompt([
+      inquirer.prompt([
           {
             type: "input",
             name: "firstName",
@@ -125,7 +124,7 @@ connection.query(query, (err, data) => {
             type: "list",
             name: "role",
             message: "what role does this employee have?",
-            //loops and displays all existing roles for selection
+
             choices: function() {
               let roleArr = [];
               for (let i = 0; i < res.length; i++) {
@@ -141,14 +140,14 @@ connection.query(query, (err, data) => {
           }
         ])
         .then(function(answers) {
-          //loops through the original response, this time comparing the title of the position with the selected title from the inquirer. When a match is found, grabs the role ID from the res object.
+
           let roleID;
           for (let j = 0; j < res.length; j++) {
             if (res[j].title == answers.role) {
               roleID = res[j].id;
             }
           }
-          //adds the new employee to the employees table, display the new employee table, launches "next" function.
+
           connection.query(
             "INSERT INTO employee SET?",
             {
@@ -160,7 +159,8 @@ connection.query(query, (err, data) => {
             function(err, res) {
               if (err) throw err;
               console.log("here are all the current employees: ");
-              viewEmployees();
+              viewEmp();
+                qStart();
             }
           );
         });
@@ -168,31 +168,87 @@ connection.query(query, (err, data) => {
   };
 
 
-const addRole = (res) => {
+    const addRole = (res) => {
+        connection.query("SELECT * FROM department", function(err, res) {
+        if (err) throw err;
 
-    connection.query(query, (err, data) => {
-        if(err) throw err;
-        console.table(data);
-        qStart();
-    });
-}
+        inquirer.prompt([
+            {
+              type: "input",
+              name: "roleName",
+              message: "What is the name of the role you would like to add?"
+            },
+            {
+              type: "input",
+              name: "pay",
+              message: "How much does this role pay?"
+            },
+            {
+              type: "list",
+              name: "depName",
+              message: "Which department would you like to add the role to?",
 
-const addDep = (res) => {
-    console.log("You are adding a Department.")
-    inquirer.prompt(questions.depAdd).then(res => {
+              choices: function() {
+                let depArr = [];
+                for (let i = 0; i < res.length; i++) {
+                  depArr.push(res[i].dep_name);
+                }
+                return depArr;
+              }
+            }
+          ]).then(function(answers) {
+
+            let depID;
+            for (let j = 0; j < res.length; j++) {
+              if (res[j].dep_name == answers.depName) {
+                depID = res[j].id;
+              }
+            }
+
+            connection.query(
+              "INSERT INTO role SET ?",
+              {
+                dep_name: answers.depName,
+                title: answers.roleName,
+                salary: answers.pay,
+                department_id: depID
+              },
+              function(err, res) {
+                if (err) throw err;
+                console.log("here are all the current roles: ");
+                viewEmpRole();
+                qStart();
+              }
+            );
+          });
+      });
+    };
 
 
 
-
-        connection.query(query, (err, data) => {
-            if(err) throw err;
-            console.table(data);
-            qStart();
-        })
-
-
-    });
-}
+   const addDep = () => {
+        inquirer.prompt([
+            {
+              type: "input",
+              name: "newDep",
+              message: "What is the name of the department?"
+            }
+          ])
+          .then((res) => {
+             connection.query(
+              "INSERT INTO department SET ?",
+              {
+                dep_name: res.newDep
+              },
+              function(err, res) {
+                if (err) throw err;
+                console.log("here are all the current departments: ");
+                viewEmpDep();
+                qStart();
+              }
+            );
+          });
+        };
 
  const upEmpRole = (res) => {
  const query = connection.query
@@ -201,7 +257,7 @@ const addDep = (res) => {
         console.table(data);
         qStart();
     });
- }
+ };
 
 
 qStart();
