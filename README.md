@@ -22,7 +22,7 @@ A solution for managing a company's employees using node, inquirer, and MySQL
 ## Instructions
 Run this command in your Command line
 ```
-node scripte.js
+node script.js
 ```
 * Move through the Selections and choose from (View all employees, View all employees by role, view all employees by department, Add employee, add role, add department, Update employee role(IM still working on this), (I am also currently working on the other selections)).
 * Click the option you want and follow the prompts.
