@@ -238,7 +238,7 @@ connection.query(query, (err, data) => {
              connection.query(
               "INSERT INTO department SET ?",
               {
-                dep_name: res.newDep
+                name: res.newDep
               },
               function(err, res) {
                 if (err) throw err;
