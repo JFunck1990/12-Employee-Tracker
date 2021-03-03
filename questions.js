@@ -57,11 +57,7 @@ const empAdd = [
 
 ];
 
-const EmpUpRole = [
-    {
-
-    }
-];
+//DELETE
 
 
 // Adding department
