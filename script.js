@@ -169,8 +169,9 @@ connection.query(query, (err, data) => {
 
 
     const addRole = (res) => {
-        connection.query("SELECT * FROM department", function(err, res) {
+        connection.query("SELECT * FROM department", function(err, dres) {
         if (err) throw err;
+        console.log(dres);
 
         inquirer.prompt([
             {
@@ -187,11 +188,10 @@ connection.query(query, (err, data) => {
               type: "list",
               name: "depName",
               message: "Which department would you like to add the role to?",
-
               choices: function() {
                 let depArr = [];
-                for (let i = 0; i < res.length; i++) {
-                  depArr.push(res[i].dep_name);
+                for (let i = 0; i < dres.length; i++) {
+                  depArr.push(dres[i].name);
                 }
                 return depArr;
               }
@@ -199,19 +199,19 @@ connection.query(query, (err, data) => {
           ]).then(function(answers) {
 
             let depID;
-            for (let j = 0; j < res.length; j++) {
-              if (res[j].dep_name == answers.depName) {
-                depID = res[j].id;
+            for (let j = 0; j < dres.length; j++) {
+              if (dres[j].name == answers.depName) {
+                depID = dres[j].id;
               }
             }
 
             connection.query(
               "INSERT INTO role SET ?",
               {
-                dep_name: answers.depName,
+
                 title: answers.roleName,
-                salary: answers.pay,
-                department_id: depID
+                salary: parseInt(answers.pay),
+                department_id:parseInt(depID)
               },
               function(err, res) {
                 if (err) throw err;
